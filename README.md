@@ -72,7 +72,10 @@
   ```bash
   Enter the final concatenated file name (e.g., final_output.mp4): 2024_09_12.mp4
   ```
-4. Depending on the number of videos, this might take hours/days to complete. The script will accelerate the videos to reduce their length. Then it will remove the audio and it will be cleaning up after processing each original file
+4. Depending on the number of videos, this might take hours/days to complete. The script will accelerate the videos to reduce their length. Then it will remove the audio and it will be cleaning up after processing all the files
+ ```bash
+ Finished
+```
 
 
 
