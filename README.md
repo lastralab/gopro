@@ -17,7 +17,7 @@
 ```
 ## Pre-requisites ##
 1. GoPro video files: "GX....MP4"
-2. Quick app to transfer videos from the camera to your computer
+2. [Quick app](https://gopro.com/en/us/shop/quik-app-video-photo-editor) to transfer videos from the camera to your computer
 3. ffmpeg
    
 ## Installation ##
