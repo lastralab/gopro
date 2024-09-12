@@ -41,6 +41,8 @@ run_command() {
 }
 
 delete_files_from_list() {
+    echo -e "${BLUE}Executing: delete_files_from_list${NC}"
+    echo
     while IFS= read -r line; do
         file=$(echo "$line" | awk '{print $2}' | sed "s/'//g")
         if [ -f "$file" ]; then
@@ -104,20 +106,16 @@ done
 
 echo
 
-# Concatenate the files listed in filelist.txt
 run_command "ffmpeg -f concat -safe 0 -i filelist.txt -c copy \"$final_concat_name\" > /dev/null 2>&1" "Concatenating files into $final_concat_name"
 
 echo
 
-# Use run_command to call delete_files_from_list
-run_command "bash -c 'delete_files_from_list'" "Deleting files listed in filelist.txt"
+delete_files_from_list
 
 echo
 
-# Optionally, clear filelist.txt
 > filelist.txt
 
-# Print "Finished" in blue
 echo -e "${BLUE}Finished${NC}"
 
 echo
