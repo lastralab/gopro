@@ -86,6 +86,8 @@ Deleting icd_7.mp4
 Finished
 
 ```
+5. At the end, the folder should contain only the video_edit.sh script, the final concatenated file and the filelist.txt should be empty
+![image](https://github.com/user-attachments/assets/076bb6e7-dc3d-4ef2-9cea-1095f5ae8972)
 
 
 
@@ -93,3 +95,5 @@ Finished
 
 
 
+
+:duck:
