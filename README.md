@@ -74,7 +74,17 @@
   ```
 4. Depending on the number of videos, this might take hours/days to complete. The script will accelerate the videos to reduce their length. Then it will remove the audio and it will be cleaning up after processing all the files
  ```bash
- Finished
+
+Deleting icd_1.mp4
+Deleting icd_2.mp4
+Deleting icd_3.mp4
+Deleting icd_4.mp4
+Deleting icd_5.mp4
+Deleting icd_6.mp4
+Deleting icd_7.mp4
+
+Finished
+
 ```
 
 
