@@ -17,7 +17,7 @@ print_error() {
 
 check_file_size_and_run() {
     local file=$1
-    local size_limit=2147483648 
+    local size_limit=2147483648 # 2GB in bytes
 
     if [ -f "$file" ] && [ $(stat -c%s "$file") -gt $size_limit ]; then
         local new_file="_${file}"
@@ -31,12 +31,25 @@ run_command() {
     local cmd=$1
     local description=$2
 
+    echo -e "${BLUE}Executing: $cmd${NC}"
     eval "$cmd"
     if [ $? -eq 0 ]; then
         print_success "$description"
     else
         print_error "Error: $description"
     fi
+}
+
+delete_files_from_list() {
+    while IFS= read -r line; do
+        file=$(echo "$line" | awk '{print $2}' | sed "s/'//g")
+        if [ -f "$file" ]; then
+            echo -e "${GREEN}Deleting $file${NC}"
+            rm "$file"
+        else
+            echo -e "${RED}File $file not found${NC}"
+        fi
+    done < filelist.txt
 }
 
 echo -e "${BLUE}"
@@ -50,7 +63,7 @@ cat << "EOF"
  / ___| ___ |  _ \ _ __ ___
 | |  _ / _ \| |_) | '__/ _ \
 | |_| | (_) |  __/| | | (_) |
- \____|\___/|_|   |_|  \___/_                   _
+ \____\___/|_|   |_|  \___/_                   _
  / ___|___  _ __   ___ __ _| |_ ___ _ __   __ _| |_ ___  _ __
 | |   / _ \| '_ \ / __/ _` | __/ _ \ '_ \ / _` | __/ _ \| '__|
 | |__| (_) | | | | (_| (_| | ||  __/ | | | (_| | || (_) | |
@@ -60,8 +73,15 @@ cat << "EOF"
 EOF
 echo -e "${NC}"
 
+echo
+
 read -p "Enter the final file name prefix: " final_prefix
+
+echo
+
 read -p "Enter the final concatenated file name (e.g., final_output.mp4): " final_concat_name
+
+echo
 
 > filelist.txt
 
@@ -82,4 +102,22 @@ for file in GX*.MP4; do
     fi
 done
 
+echo
+
+# Concatenate the files listed in filelist.txt
 run_command "ffmpeg -f concat -safe 0 -i filelist.txt -c copy \"$final_concat_name\" > /dev/null 2>&1" "Concatenating files into $final_concat_name"
+
+echo
+
+# Use run_command to call delete_files_from_list
+run_command "bash -c 'delete_files_from_list'" "Deleting files listed in filelist.txt"
+
+echo
+
+# Optionally, clear filelist.txt
+> filelist.txt
+
+# Print "Finished" in blue
+echo -e "${BLUE}Finished${NC}"
+
+echo
